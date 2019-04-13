@@ -26,24 +26,64 @@
 </head>
 
 <body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="dashboard.html">Dashboard</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div> -->
+      </div>
+    </form>
+
    
   <div id="wrapper">
 
-      <div id="clouds">
-          <div class="cloud x1"></div>
-          <div class="cloud x1_5"></div>
-          <div class="cloud x2"></div>
-          <div class="cloud x3"></div>
-          <div class="cloud x4"></div>
-          <div class="cloud x5"></div>
+    
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">404 Error</li>
+        </ol>
+
+        <!-- Page Content -->
+        <h1 class="display-1">404</h1>
+        <p class="lead">Invalid login. You can
+          <a href="javascript:history.back()">go back</a>
+          to the previous page.
+
       </div>
-      <div class='c'>
-          <div class='_404'>404</div>
-          <hr>
-          <div class='_1'>THE PAGE</div>
-          <div class='_2'>WAS NOT FOUND</div>
-          <a class='btn' href='login.html'>BACK TO LOGIN PAGE</a>
-      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © TAP 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
 
   </div>
   <!-- /#wrapper -->
