@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.biomatiques.model.Employee;
 import com.biomatiques.model.Iris;
 import com.biomatiques.model.Login;
+import com.biomatiques.services.AttendanceService;
 import com.biomatiques.services.EmployeeService;
 import com.biomatiques.services.ShiftService;
-import java.util.List;
 
 @Controller	
 public class EmployeeController {
@@ -26,11 +26,14 @@ public class EmployeeController {
 	@Autowired
 	ShiftService shiftService;
 	
+	@Autowired
+	AttendanceService attendanceService;
 	@RequestMapping(value= {"/index","/dashboard.html"},method=RequestMethod.GET)
 	public String index(Model model) {
 		if(Login.loggedin==true) {
 			model.addAttribute("totalEmployee",employeeService.getAllEmployees().stream().count());
 			model.addAttribute("totalShift", shiftService.getAllShifts().stream().count());	
+			model.addAttribute("attendance", attendanceService.liveClockIn());
 			//model.addAttribute("indexLabel", employeeService.get)
 			return "dashboard";
 		}
@@ -169,9 +172,21 @@ public class EmployeeController {
 		
 	}
 	
+	@RequestMapping(value= {"/report.html"},method=RequestMethod.GET)
+	public String reportPage() {
+		if(Login.loggedin==true) {
+			return "report.html";
+		}
+		else {
+			return "error1.html";
+		}
+		
+	}
 	
-	
-	
+	@RequestMapping(value = "/redirect",method=RequestMethod.GET)
+	public ModelAndView redirect() {
+		return new ModelAndView("redirect:" + "http://localhost/Report/attendance/attendance_bar.html");
+	}
 	
 	
 	
