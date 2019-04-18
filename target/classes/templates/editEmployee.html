@@ -255,8 +255,10 @@
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="form-label-group">
-                                <input type="text" id="department" th:field="*{department}" class="form-control" placeholder="Department"> 
-                                <label for="department">Department</label>
+                              <select th:field="*{department}" class="form-control" placeholder="Department">
+                                <option value="">Select department</option>
+                                <option th:each="department : ${departments}" th:value="${department.departmentName}" th:text="${department.departmentName}"></option>
+                              </select>
                             </div>
                         </div>
                         <div class="col-md-4">

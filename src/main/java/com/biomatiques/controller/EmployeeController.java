@@ -104,8 +104,11 @@ public class EmployeeController {
 	        return "update-employee";
 	    }*/
 		if(Login.loggedin==true) {
-			 model.addAttribute("employee",employeeService.getEmployeeById(id));
-			    return "editEmployee";	
+			List <Department> departments = new ArrayList<>();
+			departmentRepository.findAll().forEach(departments::add);
+			model.addAttribute("departments" ,departments);
+			model.addAttribute("employee",employeeService.getEmployeeById(id));
+			return "editEmployee";	
 		}
 		else {
 			return "error1.html";
