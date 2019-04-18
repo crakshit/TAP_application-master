@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>TAP - Employee</title>
+  <title>TAP - Departments</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -32,17 +32,17 @@
 
     <a class="navbar-brand mr-1" href="dashboard.html"> T.A.P </a>
 
-    <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div> -->
-      </div>
-    </form>
+<!-- Navbar Search -->
+<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+  <div class="input-group">
+    <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+    </div> -->
+  </div>
+</form>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
@@ -104,125 +104,31 @@
           <li class="breadcrumb-item">
             <a href="#">Employee</a>
           </li>
+          <li class="breadcrumb-item active">All Departments</li>
         </ol>
-
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <div class="mr-6" ><i class="fas fa-user-plus"></i></div><div class="mr-5">Add Employee</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="employeeForm.html">
-                <span class="float-left">click here to add new employee</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <div class="mr-6" ><i class="fas fa-user-plus"></i></div><div class="mr-5">Add Department</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="departmentForm.html">
-                <span class="float-left">click here to add new department.</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-primary o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                      <i class="fas fa-user-plus"></i>
-                  </div>
-                  <div class="mr-6" ><i class="fas fa-user-plus"></i></div><div class="mr-5">View Department</div>
-                </div>
-                <a class="card-footer text-white clearfix small z-1" href="viewDepartment.html">
-                  <span class="float-left">click here to view all department.</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-      </div>
 
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            All Employee</div>
+            Departments</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Gender</th>
-                    <th>Phone</th>
-                    <th>Birthdate</th>
-                    <th>Address</th>
-                    <th>PinCode</th>
-                    <th>State</th>
-                    <th>City</th>
-                    <th>Email</th>
-                    <th>Linkedin</th>
-                    <th>BloodGroup</th>
-                    <th>Aadhar</th>
-                    <th>Experience</th>
-                    <th>Department</th>
-                    <th>Type</th>
-                    <th>Post</th>
-                    <th>Shift</th>
-                    <th>Salary</th>
-                    <th>Company</th>
-                    <th>Iris</th>
+                    <th>Department Name</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="employee : ${employees}">
-                      <td th:text="${employee.id}"></td>
-                      <td th:text="${employee.firstName}"></td>
-                      <td th:text="${employee.middleName}"></td>
-                      <td th:text="${employee.lastName}"></td>
-                      <td th:text="${employee.gender}"></td>
-                      <td th:text="${employee.phoneNumber}"></td>
-                      <td th:text="${employee.dob}"></td>
-                      <td th:text="${employee.address}"></td>
-                      <td th:text="${employee.pincode}"></td>
-                      <td th:text="${employee.state}"></td>
-                      <td th:text="${employee.city}"></td>
-                      <td th:text="${employee.email}"></td>
-                      <td th:text="${employee.linkedinId}"></td>
-                      <td th:text="${employee.bloodGroup}"></td>
-                      <td th:text="${employee.aadharNumber}"></td>
-                      <td th:text="${employee.experience}"></td>
-                      <td th:text="${employee.department}"></td>
-                      <td th:text="${employee.employeeType}"></td>
-                      <td th:text="${employee.employeePost}"></td>
-                      <td th:text="${employee.shiftName}"></td>
-                      <td th:text="${employee.salary}"></td>
-                      <td th:text="${employee.company}"></td>
-                      <td th:text="${employee.irisId}"></td>
-                      <td><a th:href="@{/edit/{id}(id=${employee.id})}">Edit</a></td>
-                      <td><a th:href="@{/delete/{id}(id=${employee.id})}">Delete</a></td>
+                  <tr th:each="department : ${departments}">
+                      <td th:text="${department.id}"></td>
+                      <td th:text="${department.departmentName}"></td>
+                      <td><a th:href="@{/editDepartment/{id}(id=${department.id})}">Edit</a></td>
+                      <td><a th:href="@{/deleteDepartment/{id}(id=${department.id})}">Delete</a></td>
                   </tr>
                 </tbody>
               </table>

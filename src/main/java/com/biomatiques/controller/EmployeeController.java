@@ -1,5 +1,8 @@
 package com.biomatiques.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.biomatiques.model.Department;
 import com.biomatiques.model.Employee;
 import com.biomatiques.model.Iris;
 import com.biomatiques.model.Login;
+import com.biomatiques.repository.DepartmentRepository;
 import com.biomatiques.services.AttendanceService;
 import com.biomatiques.services.EmployeeService;
 import com.biomatiques.services.ShiftService;
@@ -25,6 +29,9 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	@Autowired
 	ShiftService shiftService;
+	
+	@Autowired
+	DepartmentRepository departmentRepository;
 	
 	@Autowired
 	AttendanceService attendanceService;
@@ -53,8 +60,11 @@ public class EmployeeController {
 		
 	}
 	@RequestMapping(value= {"/employeeForm.html"},method=RequestMethod.GET)
-	public String employeeForm(Employee employee) {
+	public String employeeForm(Employee employee, Model model) {
 		if(Login.loggedin==true) {
+			List <Department> departments = new ArrayList<>();
+			departmentRepository.findAll().forEach(departments::add);
+			model.addAttribute("departments" ,departments);
 			return "employeeForm";
 		}
 		else {
@@ -74,30 +84,6 @@ public class EmployeeController {
 		
 	}
 
-	//Pagiantion
-	
-	/*@RequestMapping(value = "/viewEmployee.html", method = RequestMethod.GET)
-    public String listBooks(
-      Model model, 
-      @RequestParam("page") Optional<Integer> page, 
-      @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
- 
-        Page<Employee> employeePage = employeeService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
- 
-        model.addAttribute("employeePage", employeePage);
- 
-        int totalPages = employeePage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                .boxed()
-                .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
- 
-        return "viewEmployee.html";
-    }*/
 	//ADD
 	@RequestMapping(value="/addEmployee",method=RequestMethod.POST)
 	public String addEmployee (@Valid Employee employee,BindingResult result, Model model) {
@@ -109,6 +95,7 @@ public class EmployeeController {
 		model.addAttribute("employees", employeeService.getAllEmployees());
 		return "redirect:/viewEmployee.html";		
 	}
+	
 	//Editform
 	@RequestMapping(value="/edit/{id}",method=RequestMethod.GET)
 	public String editEmployee(@PathVariable("id") long id, Model model) {
@@ -183,14 +170,99 @@ public class EmployeeController {
 		
 	}
 	
-	@RequestMapping(value = "/redirect",method=RequestMethod.GET)
-	public ModelAndView redirect() {
-		return new ModelAndView("redirect:" + "http://localhost/Report/attendance/attendance_bar.html");
+	//Department Form
+	@RequestMapping(value= {"/departmentForm.html"},method=RequestMethod.GET)
+	public String departmentForm(Department department) {
+		if(Login.loggedin==true) {
+			return "departmentForm";
+		}
+		else {
+			return "error1.html";
+		}
+		
 	}
 	
+	//Add Department
+	@RequestMapping(value="/addDepartment",method=RequestMethod.POST)
+	public String addDepartment (@Valid Department department ,BindingResult result, Model model) {
+		
+		List <Department> departmentList = new ArrayList<>();
+		departmentRepository.save(department);
+		departmentRepository.findAll().forEach(departmentList::add);
+		//model attribute is for the table.html view where each employee from the employees is extracted
+		model.addAttribute("department", departmentList);
+		return "redirect:/viewDepartment.html";		
+	}
 	
+	//View Department
+	@RequestMapping(value= {"/viewDepartment.html"},method=RequestMethod.GET)
+	public String viewDepartment(Model model) {
+		if(Login.loggedin==true) {
+			List <Department> departments = new ArrayList<>();
+			departmentRepository.findAll().forEach(departments::add);
+			model.addAttribute("departments" ,departments);
+			return "viewDepartment.html";
+		}
+		else {
+			return "error1.html";
+		}
+		
+	}
 	
+	//Edit department form
+	@RequestMapping(value="/editDepartment/{id}",method=RequestMethod.GET)
+	public String editDepartment(@PathVariable("id") long id, Model model) {
 	
+		if(Login.loggedin==true) {
+			Department department = new Department();
+			department = departmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
+			model.addAttribute("department", department);
+			return "editDepartment";	
+		}
+		else {
+			return "error1.html";
+		}
+		   
+	}
+	
+	//Update Department
+	@RequestMapping(value="/updateDepartment/{id}",method=RequestMethod.POST)
+	public String updateDepartment(@PathVariable("id") long id, @Valid Department department,BindingResult result, Model model) {
+	   /* if (result.hasErrors()) {
+	        employee.setId(id);
+	        return "update-employee";
+	    }*/
+		if(Login.loggedin==true) {
+			departmentRepository.save(department);
+			//employeeService.updateEmployee(employee);
+			List <Department> departments = new ArrayList<>();
+			departmentRepository.findAll().forEach(departments::add);
+			model.addAttribute("departments" ,departments);
+			return "redirect:/viewDepartment.html";	
+		}
+		else {
+			return "error1.html";
+		}  
+	    
+	}
+	
+	//DELETE     
+	@RequestMapping(value="/deleteDepartment/{id}",method=RequestMethod.GET)
+	public String deleteDepartment(@PathVariable("id") long id, Model model) {
+		if(Login.loggedin==true) {
+			departmentRepository.deleteById(id);
+//			Employee employee = employeeService.getEmployeeById(id);
+//			employeeService.deleteEmployee(employee.getId());
+			List <Department> departments = new ArrayList<>();
+			departmentRepository.findAll().forEach(departments::add);
+			model.addAttribute("departments" ,departments);
+			return "redirect:/viewDepartment.html";
+		}
+		else {
+			return "error1.html";
+		}  
+			
+	}
 	
 	
 	
