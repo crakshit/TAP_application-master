@@ -194,17 +194,17 @@ public class EmployeeController {
 		departmentRepository.findAll().forEach(departmentList::add);
 		//model attribute is for the table.html view where each employee from the employees is extracted
 		model.addAttribute("department", departmentList);
-		return "redirect:/viewDepartment.html";		
+		return "redirect:/department.html";		
 	}
 	
 	//View Department
-	@RequestMapping(value= {"/viewDepartment.html"},method=RequestMethod.GET)
-	public String viewDepartment(Model model) {
+	@RequestMapping(value= {"/department.html"},method=RequestMethod.GET)
+	public String viewDepartment(Department department, Model model) {
 		if(Login.loggedin==true) {
 			List <Department> departments = new ArrayList<>();
 			departmentRepository.findAll().forEach(departments::add);
 			model.addAttribute("departments" ,departments);
-			return "viewDepartment.html";
+			return "department.html";
 		}
 		else {
 			return "error1.html";
@@ -241,7 +241,7 @@ public class EmployeeController {
 			List <Department> departments = new ArrayList<>();
 			departmentRepository.findAll().forEach(departments::add);
 			model.addAttribute("departments" ,departments);
-			return "redirect:/viewDepartment.html";	
+			return "redirect:/department.html";	
 		}
 		else {
 			return "error1.html";
@@ -251,7 +251,7 @@ public class EmployeeController {
 	
 	//DELETE     
 	@RequestMapping(value="/deleteDepartment/{id}",method=RequestMethod.GET)
-	public String deleteDepartment(@PathVariable("id") long id, Model model) {
+	public String deleteDepartment(@PathVariable("id") long id, Department department, Model model) {
 		if(Login.loggedin==true) {
 			departmentRepository.deleteById(id);
 //			Employee employee = employeeService.getEmployeeById(id);
@@ -259,7 +259,7 @@ public class EmployeeController {
 			List <Department> departments = new ArrayList<>();
 			departmentRepository.findAll().forEach(departments::add);
 			model.addAttribute("departments" ,departments);
-			return "redirect:/viewDepartment.html";
+			return "redirect:/department.html";
 		}
 		else {
 			return "error1.html";
