@@ -131,6 +131,36 @@
             </div>
 
         </form>
+        
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Departments</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Department Name</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="department : ${departments}">
+                      <td th:text="${department.id}"></td>
+                      <td th:text="${department.departmentName}"></td>
+                      <td><a th:href="@{/editDepartment/{id}(id=${department.id})}">Edit</a></td>
+                      <td><a th:href="@{/deleteDepartment/{id}(id=${department.id})}">Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
 
       </div>
       <!-- /.container-fluid -->
